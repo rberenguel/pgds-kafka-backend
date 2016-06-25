@@ -1,0 +1,21 @@
+# ambassador:
+#   image: svendowideit/ambassador
+#   ports: 9099:9092
+
+kafka_ambassador_host:
+  image: svendowideit/ambassador
+
+  ports: 
+    - "9092:9099"
+  environment:
+    KAFKA_PORT_9092_TCP: tcp://127.0.0.1:9092
+
+twitter:
+  build: .
+
+  links:
+    - kafka_ambassador_host:kafka
+    
+
+
+
