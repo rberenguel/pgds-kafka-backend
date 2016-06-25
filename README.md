@@ -1,6 +1,6 @@
-! M'interessa Kafka backend
+# M'interessa Kafka backend
 
-!! Disclaimer
+## Disclaimer
 
 This repository stores one component of broader project code-named
 "M'interessa" that is expected to evaluate the knowledge acquired in
@@ -25,7 +25,7 @@ website/blog. After we get a version tagged as 1.0.0, we'll be pleased
 to accept and review Pull Requests from other community members
 outside of the group.
 
-!! Objective of the project
+## Objective of the project
 
 The project is intended to use machine learning models, natural
 language processing and scrapping technologies (along with other big
@@ -42,7 +42,7 @@ You will be able to read more about the project soon in the companion
 website of the project, where we explain the overall details and
 collect blog posts from the team members.
 
-! Requirements
+# Requirements
 
 To run this producer you only need [Docker](https://www.docker.com/)
 with [docker-compose](https://docs.docker.com/compose/) (which is part
@@ -71,7 +71,7 @@ You also need to add to your `etc/hosts` the following line:
 127.0.0.1	kafka
 ```
 
-!! If you want to mess with the producer
+## If you want to mess with the producer
 
 If you want to play around with starting/stopping the producer on your
 own, you will need `Scala 2.11.8` with `sbt` 0.13. SBT should handle
@@ -80,7 +80,7 @@ the error message, cross your fingers and try to apply the
 suggestion. Usually it involves removing the cache (delete everything
 in `~/.ivy2`) and trying again.
 
-! Starting the container(s)
+# Starting the container(s)
 
 If you want to run the whole stack (Zookeper, Kafka with one broker and a producer):
 
@@ -110,7 +110,7 @@ just try writing consumers (keep in mind that to test a consumer you
 need a producer: in case of desperate need download Kafka 0.10.0 and
 use the command line producer)
 
-!! Starting the producer on its own
+## Starting the producer on its own
 
 Remember to set all the exports with the twitter app tokens from above, and also 
 
@@ -134,7 +134,7 @@ run
 
 which will start the producer. If the Kafka and Zookeper containers are up and correctly setup, a constant stream of tweets will fly into it.
 
-! A sample consumer to test everything works
+# A sample consumer to test everything works
 
 Using your preferred (`virtualenv` or just `sudo`) install the python kafka API handler (I have only tried with `pip2.7` here, use `python 3.3+` at your own risk)
 
@@ -156,7 +156,7 @@ for msg in consumer:
 and this serves as a basic consumer in Python, without any error
 checking.
 
-! How does this thing work exactly?
+# How does this thing work exactly?
 
 * Zookeper keeps track of who has read from where
 * Kafka acts as a kind of queue (through a publish-subscribe mechanism)
