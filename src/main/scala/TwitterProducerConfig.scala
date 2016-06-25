@@ -12,7 +12,8 @@ object TwitterProducerConfig {
   val props_s = getClass.getResourceAsStream("../../producer.properties")
   props.load(props_s)
   val environmentVars = System.getenv
-  // Useful for debug: for ((k,v) <- environmentVars) println(s"key: $k, value: $v")
+  // Useful for debug:
+  for ((k,v) <- environmentVars) println(s"key: $k, value: $v")
   try {
     val broker = sys.env("KAFKA")
     props.setProperty("metadata.broker.list", broker)
@@ -39,13 +40,13 @@ object TwitterProducerConfig {
 
 
   val cb = new ConfigurationBuilder()
-  cb.setOAuthConsumerKey(props.getProperty("consumerKey"))
-  cb.setOAuthConsumerSecret(props.getProperty("consumerSecret"))
-  cb.setOAuthAccessToken(props.getProperty("accessToken"))
-  cb.setOAuthAccessTokenSecret(props.getProperty("accessTokenSecret"))
+  cb.setOAuthConsumerKey(sys.env("TWITTERCONSUMERKEY"))
+  cb.setOAuthConsumerSecret(sys.env("TWITTERCONSUMERSECRET"))
+  cb.setOAuthAccessToken(sys.env("TWITTERACCESSTOKEN"))
+  cb.setOAuthAccessTokenSecret(sys.env("TWITTERACCESSTOKENSECRET"))
   cb.setJSONStoreEnabled(true)
   cb.setIncludeEntitiesEnabled(true)
-
+  print(cb)
   val twitterStreamingConf = cb.build()
 
 }
