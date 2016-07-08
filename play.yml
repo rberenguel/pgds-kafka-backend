@@ -1,0 +1,24 @@
+- hosts: kafka
+  environment:
+    KAFKA: "{{ lookup('env','KAFKA') }}"
+    TWITTERCONSUMERKEY: "{{ lookup('env','TWITTERCONSUMERKEY') }}"
+    TWITTERCONSUMERSECRET: "{{ lookup('env','TWITTERCONSUMERSECRET') }}"
+    TWITTERACCESSTOKEN: "{{ lookup('env','TWITTERACCESSTOKEN') }}"
+    TWITTERACCESSTOKENSECRET: "{{ lookup('env','TWITTERACCESSTOKENSECRET') }}"
+  tasks:
+  - name: install the latest version of Docker
+    yum: name=docker state=latest
+  - name: install the latest version of Git
+    yum: name=git state=latest
+  - name: Start docker 
+    service: name=docker state=started
+  - name: Create directory
+    file: path=/opt/srv/ state=directory mode=0755
+  - git: repo=https://github.com/rberenguel/pgds-kafka-backend.git
+         dest=/opt/srv
+  - name: Install compose
+    pip: name=docker-compose
+  - name: Build the docker compose service images, do not start the compose
+    command: /usr/local/bin/docker-compose -f /opt/srv/docker-compose-single-broker.yml pull
+  - name: Okay, lets start the thing
+    command: /usr/local/bin/docker-compose -f /opt/srv/docker-compose-single-broker.yml up -d

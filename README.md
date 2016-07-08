@@ -1,5 +1,17 @@
 # M'interessa Kafka backend
 
+Table of Contents
+=================
+
+  * [Disclaimer](#disclaimer)
+  * [Objective of the project](#objective-of-the-project)
+  * [Requirements](#requirements)
+    * [If you want to mess with the producer](#if-you-want-to-mess-with-the-producer)
+  * [Starting the container(s)](#starting-the-containers)
+    * [Starting the producer on its own](#starting-the-producer-on-its-own)
+  * [A sample consumer to test everything works](#a-sample-consumer-to-test-everything-works)
+  * [How does this thing work exactly?](#how-does-this-thing-work-exactly)
+
 ## Disclaimer
 
 This repository stores one component of broader project code-named
@@ -155,6 +167,19 @@ for msg in consumer:
 
 and this serves as a basic consumer in Python, without any error
 checking.
+
+# Deploying on AWS
+
+* Create an instance on EC2 with a standard AMI from Amazon with your access keys
+* Modify the hosts file with the correct public ip of the machine (or VPC if not doing it from your machine)
+* Be sure to [set up bash for automatic keys](http://docs.ansible.com/ansible/intro_getting_started.html#your-first-commands)
+* Execute the following. This will start zookeeper, kafka and the producer
+```bash
+ansible-playbook -i hosts play.yml -u ec2-user --sudo
+```
+
+To connect consumers to this "remote" kafka instance, modify `etc/hosts`'s entry for kafka to point to this IP.
+
 
 # How does this thing work exactly?
 
