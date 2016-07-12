@@ -1,5 +1,12 @@
 version: '2'
 services:
+  graphite:
+    image: sitespeedio/graphite
+    ports:
+      - "9876:80"
+      - "2003:2003"
+    volumes:
+      - ./storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
